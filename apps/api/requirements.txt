@@ -1,0 +1,23 @@
+# The entity-safety gate lives in this repo as a standalone, dependency-free
+# package. Installed from source (editable) so it is a real package boundary
+# rather than a directory the application happens to import.
+-e ./packages/entity-safety
+fastapi==0.138.2
+uvicorn[standard]==0.35.0
+pydantic==2.12.5
+pydantic-settings==2.14.2
+sqlalchemy[asyncio]==2.0.41
+asyncpg==0.30.0
+alembic==1.16.2
+redis==6.2.0
+httpx==0.28.1
+pyjwt[crypto]==2.10.1
+tldextract==5.3.0
+# The RSS and search adapters import feedparser directly. It used to arrive
+# only as a transitive dependency of agent-reach, which meant the declared
+# requirements never actually described what the code imports; moving
+# agent-reach out surfaced that. Declared explicitly now.
+feedparser==6.0.12
+# agent-reach is deliberately NOT here. It is an optional external CLI that
+# installs from a GitHub archive URL, which rate-limits; see
+# requirements-gateway.txt.
